@@ -1,29 +1,21 @@
 body {
-	font: 'Raleway', sans-serif;
-    color: rgba(0,0,0,.5);
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: .5em;
-    top: 15%;
-	background: linear-gradient(to right, red , yellow); /* Standard syntax */
+  background-color: #232323;
 }
 
-h1 {
-    font: 600 3.5em 'Raleway', sans-serif;
-    color: rgba(0,0,0,.5);
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: .5em;
-    width: 100%;
+.container {
+  position: absolute;
+  margin: 12% 0 0 35%;
 }
-h2, .color1, .color2 {
-    margin-top: 100px;
-}
-h3 {
-	font: 900 1em 'Raleway', sans-serif;
-    color: rgba(0,0,0,.5);
-    text-align: center;
-    text-transform: none;
-    letter-spacing: 0.01em;
 
+#title {
+  font-family: "Alfa Slab One";
+  color: white;
+}
+
+p small {
+  color: grey;
+}
+
+#starwars, #supermario {
+  font-family: "Cabin";
 }
