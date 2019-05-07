@@ -8,7 +8,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      wifi: {'network': '', 'password': ''}
+      wifi: 'WiFi Not Connected'
     }
     this.getInfo = this.getInfo.bind(this);
   }
@@ -37,8 +37,7 @@ class App extends React.Component {
           <LobbyChat />
         </div>
         <div>
-          <p>Wifi Name: {this.state.wifi.network}</p>
-          <p>Password: {this.state.wifi.password}</p>
+          <p>Your WiFi: {this.state.wifi}</p>
         </div>
       </div>
     )

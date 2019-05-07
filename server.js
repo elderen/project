@@ -41,11 +41,12 @@ app.get('/network', (req, res) => {
   // })
   wifiName().then((name) => {
     console.log('NAME: ', name)
-    wifiPass().then((pw) => {
-      console.log('PASSWORD: ', pw)
-      let login = {"network":name, "password":pw};
-      res.send(login);
-    })
+    res.send(name);
+    // wifiPass().then((pw) => {
+    //   console.log('PASSWORD: ', pw)
+    //   let login = {"network":name, "password":pw};
+    //   res.send(login);
+    // })
   })
 })
 
