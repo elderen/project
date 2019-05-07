@@ -50,8 +50,8 @@ class App extends React.Component {
           <LobbyChat />
         </div>
         <div>
-          <p>Say something {this.state.name}!</p>
           <p>{this.state.wifi === 'WiFi Not Connected' ? this.state.wifi : 'Connected to '+this.state.wifi}</p>
+          <p>Say Something {this.state.name}!</p>
         </div>
       </div>
     )
