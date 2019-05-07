@@ -18,7 +18,7 @@ class App extends React.Component {
   }
 
   getInfo() {
-    axios.get('https://wifichat.herokuapp.com/network')
+    axios.get('/network')
       .then((result)=>{
         this.setState({
           wifi: result.data
