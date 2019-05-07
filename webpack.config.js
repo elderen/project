@@ -13,7 +13,7 @@ module.exports = {
         ]
     },
     entry: {
-        main: './client/index.js'
+        main: './client/index.jsx'
     },
     output: {
         filename: 'bundle.js',

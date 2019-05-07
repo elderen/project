@@ -2,8 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
-// const wifiControl = require('wifi-control');
+const wifiControl = require('wifi-control');
+const model = require('./middleware/model');
+const wifiName = require('wifi-name');
+const wifiPass = require('wifi-password');
 
+// Websocket | HTTP | express
 let app = express();
 const port = process.env.PORT || 3000;
 const http = require('http').Server(app);
@@ -19,20 +23,59 @@ io.on('connection', (socket) => {
   });
 })
 
+// Wifi-Control module initate
+wifiControl.init({
+  debug: true
+});
+
+// Middleware
 app.use(express.static(path.join(__dirname, 'production')))
 app.use(bodyParser.json());
 app.use(cors());
 
-// wifiControl. init({
-//   debug: true
-// })
-// app.get('/:id', (req, res) => {
-//   wifiControl.scanForWiFi((err, response)=>{
-//     if (err) console.log(err);
-//     res.send(response.networks);
-//   })
-// })
+// RESTful API
+app.get('/network', (req, res) => {
+  // wifiControl.scanForWiFi((err, response)=>{
+  //   if (err) console.log(err);
+  //   res.send(response.networks);
+  // })
+  wifiName().then((name) => {
+    console.log('NAME: ', name)
+    wifiPass().then((pw) => {
+      console.log('PASSWORD: ', pw)
+      let login = {"network":name, "password":pw};
+      res.send(login);
+    })
+  })
+})
 
+app.post('/message', (req, res) => {
+  let incoming = req.body;
+  console.log(incoming);
+  model.add(incoming)
+    .then((data) => {
+      console.log('ADD DATA: ', data);
+      res.send(data);
+    })
+})
+
+app.get('/message', (req, res) => {
+  model.find()
+    .then((data) => {
+      console.log('FIND DATA: ', data);
+      res.send(data);
+    })
+})
+
+app.delete('/message', (req, res) => {
+  model.deleteAll()
+    .then((data) => {
+      console.log('DELETE DATA: ', data);
+      res.send(data);
+    })
+})
+
+// Server Port
 http.listen(port, () => {
   console.log(`Listening on port ${port}... ------>`);
 })
