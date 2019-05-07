@@ -10,8 +10,9 @@ const wifiPass = require('wifi-password');
 // Websocket | HTTP | express
 let app = express();
 const port = process.env.PORT || 3000;
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
 
 io.on('connection', (socket) => {
   console.log('<------ User Connected via Socket.Io ------->');
@@ -29,25 +30,27 @@ wifiControl.init({
 });
 
 // Middleware
-app.use(express.static(path.join(__dirname, 'production')))
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.json());
 app.use(cors());
+// io.use(p2p);
 
 // RESTful API
 app.get('/network', (req, res) => {
-  wifiControl.scanForWiFi((err, response)=>{
-    if (err) console.log(err);
-    res.send(response.networks);
-  })
-  // wifiName().then((name) => {
-  //   console.log('NAME: ', name)
-  //   res.send(name);
-  //   // wifiPass().then((pw) => {
-  //   //   console.log('PASSWORD: ', pw)
-  //   //   let login = {"network":name, "password":pw};
-  //   //   res.send(login);
-  //   // })
+  // wifiControl.getIfaceState((err, response)=>{
+  //   if (err) console.log(err);
+  //   res.send(response.networks);
   // })
+
+  wifiName().then((name) => {
+    console.log('NAME: ', name)
+    res.send(name);
+    // wifiPass().then((pw) => {
+    //   console.log('PASSWORD: ', pw)
+    //   let login = {"network":name, "password":pw};
+    //   res.send(login);
+    // })
+  })
 })
 
 app.post('/message', (req, res) => {
@@ -77,6 +80,6 @@ app.delete('/message', (req, res) => {
 })
 
 // Server Port
-http.listen(port, () => {
+server.listen(port, () => {
   console.log(`Listening on port ${port}... ------>`);
 })

@@ -8,24 +8,36 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      wifi: 'WiFi Not Connected'
+      wifi: 'WiFi Not Connected',
+      name: 'Anonymous'
     }
     this.getInfo = this.getInfo.bind(this);
   }
 
   componentDidMount() {
+    let name = prompt("Enter your username", "Anonymous")
+    console.log('NAME: ', name);
+    this.setState({
+      name: name
+    })
     this.getInfo();
   }
 
   getInfo() {
     axios.get('/network')
-      .then((result)=>{
-        console.log(result.data)
+      .then(({data})=>{
+        console.log('SSID: ', data)
         this.setState({
-          wifi: result.data[0].ssid
+          wifi: data
         })
         console.log('Current Network: ', this.state.wifi)
       })
+    // WifiManager.getCurrentWifiSSID()
+    // .then((ssid) => {
+    //   console.log("Your current connected wifi SSID is " + ssid)
+    // }, () => {
+    //   console.log('Cannot get current SSID!')
+    // })
   }
 
   render() {
@@ -38,7 +50,8 @@ class App extends React.Component {
           <LobbyChat />
         </div>
         <div>
-          <p>Your WiFi: {this.state.wifi}</p>
+          <p>Say something {this.state.name}!</p>
+          <p>{this.state.wifi === 'WiFi Not Connected' ? this.state.wifi : 'Connected to '+this.state.wifi}</p>
         </div>
       </div>
     )
