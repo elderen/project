@@ -35,19 +35,19 @@ app.use(cors());
 
 // RESTful API
 app.get('/network', (req, res) => {
-  // wifiControl.scanForWiFi((err, response)=>{
-  //   if (err) console.log(err);
-  //   res.send(response.networks);
-  // })
-  wifiName().then((name) => {
-    console.log('NAME: ', name)
-    res.send(name);
-    // wifiPass().then((pw) => {
-    //   console.log('PASSWORD: ', pw)
-    //   let login = {"network":name, "password":pw};
-    //   res.send(login);
-    // })
+  wifiControl.scanForWiFi((err, response)=>{
+    if (err) console.log(err);
+    res.send(response.networks);
   })
+  // wifiName().then((name) => {
+  //   console.log('NAME: ', name)
+  //   res.send(name);
+  //   // wifiPass().then((pw) => {
+  //   //   console.log('PASSWORD: ', pw)
+  //   //   let login = {"network":name, "password":pw};
+  //   //   res.send(login);
+  //   // })
+  // })
 })
 
 app.post('/message', (req, res) => {

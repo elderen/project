@@ -20,8 +20,9 @@ class App extends React.Component {
   getInfo() {
     axios.get('/network')
       .then((result)=>{
+        console.log(result.data)
         this.setState({
-          wifi: result.data
+          wifi: result.data[0].ssid
         })
         console.log('Current Network: ', this.state.wifi)
       })
