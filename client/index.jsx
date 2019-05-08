@@ -16,7 +16,7 @@ class App extends React.Component {
     this.getInfo = this.getInfo.bind(this);
   }
   componentWillMount() {
-    let name = prompt("Enter your username", "spicypepper")
+    let name = prompt("Enter your username")
     console.log('NAME: ', name);
     this.setState({
       name: name
@@ -25,15 +25,15 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getInfo();
-
     const socket = io();
-    socket.emit("FromAPI", this.state.name)
-    socket.on("FromAPI", (data) => {
-      console.log("FROM API DATA: ", data);
-      this.setState({ response: data })
-      socket.on('chat message', function(msg){
-        $('#messages').append($('<li>').text(data + ": " + msg));
-      });
+    var user = this.state.name;
+    // socket.emit("FromAPI", this.state.name)
+    // socket.on("FromAPI", (data) => {
+    //   console.log("FROM API DATA: ", data);
+    //   this.setState({ response: data })
+    // });
+    socket.on('chat message', function(msg){
+      $('#messages').append($('<li>').text(user + ": " + msg));
     });
 
   }
