@@ -12,7 +12,7 @@ module.exports = {
   find: () => {
     return Chat.find()
                 // .sort('-created')
-                .limit(40)
+                .limit(50)
                 .exec()
   },
 
