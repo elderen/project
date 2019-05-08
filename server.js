@@ -13,14 +13,20 @@ const port = process.env.PORT || 3000;
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-
+// Single Websocket Connection
 io.on('connection', (socket) => {
+  showLog(socket);
   console.log('<------ User Connected via Socket.Io ------->');
-  // socket.on('chat message', function(msg){
-  //   console.log('message: ' + msg);
-  // });
   socket.on('chat message', function(userMsg){
-    io.emit('chat message', userMsg);
+    let jsonUserMsg = {user: userMsg.split(': ')[0], message: userMsg.split(': ')[1]}
+    model.add(jsonUserMsg)
+    .then((oneMsg) => {
+      console.log('ADDed log: ', oneMsg);
+      let msg = [];
+      msg.push(oneMsg.user + ': ' + oneMsg.message);
+      console.log('array: ', msg);
+      io.emit('chat message', msg);
+    })
   });
 })
 
@@ -35,13 +41,26 @@ app.use(bodyParser.json());
 app.use(cors());
 // io.use(p2p);
 
-// RESTful API
+// Helper Functions
+const showLog = (socket) => {
+  model.find()
+    .then((data) => {
+      let logs = [];
+      data.map((one) => {
+        let msg = one.user + ': ' + one.message;
+        logs.push(msg);
+      })
+      socket.emit('chat message', logs);
+    })
+}
+
+// RESTful API  *NOT NEEDED
 app.get('/network', (req, res) => {
+    /* GETS ALL NETWORK WITHIN RANGE */
   // wifiControl.getIfaceState((err, response)=>{
   //   if (err) console.log(err);
   //   res.send(response.networks);
   // })
-
   wifiName().then((name) => {
     console.log('NAME: ', name)
     res.send(name);

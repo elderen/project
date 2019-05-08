@@ -11,8 +11,8 @@ module.exports = {
 
   find: () => {
     return Chat.find()
-                // .sort('time')
-                .limit(100)
+                // .sort('-created')
+                .limit(40)
                 .exec()
   },
 

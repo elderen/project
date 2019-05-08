@@ -11,9 +11,6 @@
   <h1 class='center'>WiFi Chat</h1>
   <div class='center' id='wifichat'></div>
   <ul id="messages"></ul>
-  <!-- <form action="">
-    <input id="m" autocomplete="on" /><button>Send</button>
-  </form> -->
   <script src='bundle.js'></script>
 
   <script src="/socket.io/socket.io.js"></script>
@@ -21,14 +18,11 @@
   <script>
       $(function () {
         var socket = io();
-        // $('form').submit(function(e){
-        //   e.preventDefault(); // prevents page reloading
-        //   socket.emit('chat message', $('#m').val());
-        //   $('#m').val('');
-        //   return false;
-        // });
         socket.on('chat message', function(userMsg){
-          $('#messages').append($('<li>').text(userMsg));
+          console.log('MESSAGES: ', userMsg);
+          userMsg.map((oneMsg)=>{
+            $('#messages').append($('<li>').text(oneMsg));
+          })
         });
       });
   </script>
