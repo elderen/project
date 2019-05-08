@@ -9,7 +9,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       wifi: 'WiFi Not Connected',
-      user: 'Anonymous',
+      user: 'Anon',
     }
     this.getInfo = this.getInfo.bind(this);
   }
