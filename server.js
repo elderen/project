@@ -8,7 +8,7 @@ const wifiName = require('wifi-name');
 const wifiPass = require('wifi-password');
 
 // Websocket | HTTP | express
-let app = express();
+const app = express();
 const port = process.env.PORT || 3000;
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
@@ -19,6 +19,10 @@ io.on('connection', (socket) => {
   // socket.on('chat message', function(msg){
   //   console.log('message: ' + msg);
   // });
+  socket.on("FromAPI", (message)=>{
+    io.emit('FromAPI', message);
+  });
+
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
   });
