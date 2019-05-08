@@ -15,10 +15,12 @@ class App extends React.Component {
   }
   componentWillMount() {
     let name = prompt("Enter your username")
-    console.log('NAME: ', name);
-    this.setState({
-      user: name
-    })
+    // console.log('NAME: ', name);
+    if (name) {
+      this.setState({
+        user: name
+      })
+    }
   }
 
   componentDidMount() {
