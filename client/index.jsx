@@ -39,13 +39,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <PrivateChat />
-        </div>
-        
+      <div>        
         <div>
           <p>{this.state.wifi === 'WiFi Not Connected' ? this.state.wifi : 'Connected to '+this.state.wifi}</p>
+        </div>
+
+        <div>
+          Main Lobby
         </div>
 
         <div>
