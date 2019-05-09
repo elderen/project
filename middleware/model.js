@@ -11,8 +11,7 @@ module.exports = {
 
   find: () => {
     return Chat.find()
-                // .sort('-created')
-                .limit(50)
+                .skip(Chat.count() - 50)
                 .exec()
   },
 

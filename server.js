@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
       console.log('ADDed log: ', oneMsg);
       let msg = [];
       msg.push(oneMsg.user + ': ' + oneMsg.message);
-      console.log('array: ', msg);
+      // console.log('array: ', msg);
       io.emit('chat message', msg);
     })
   });
