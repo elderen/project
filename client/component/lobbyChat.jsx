@@ -21,11 +21,16 @@ class LobbyChat extends React.Component {
 
   onClick(e) {
     e.preventDefault();
-    document.getElementById("m").value="";
-    // console.log('userMsg: ', this.props.user + ': ' + this.state.message);
-    let userMsg = this.props.user + ': ' + this.state.message;
-    const socket = io();
-    socket.emit('chat message', userMsg);
+    if (this.state.message) {
+      document.getElementById("m").value="";
+      // console.log('userMsg: ', this.props.user + ': ' + this.state.message);
+      let userMsg = this.props.user + ': ' + this.state.message;
+      const socket = io();
+      socket.emit('chat message', userMsg);
+      this.setState({
+        message: null
+      })
+    }
   }
 
   onChange(e) {
